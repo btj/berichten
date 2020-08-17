@@ -2,10 +2,16 @@ package berichten.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import berichten.Bericht;
+import berichten.BerichtUtils;
 import berichten.OB;
 import berichten.Reactie;
 
@@ -29,6 +35,24 @@ class BerichtenTests {
 		
 		Reactie r3 = new Reactie("Auteur2", r2);
 		assertEquals(List.of(r3), r2.getReacties());
+		
+		assertEquals(0, BerichtUtils.getDiepte(ob));
+		assertEquals(2, BerichtUtils.getDiepte(r3));
+		
+		{
+			ArrayList<Bericht> berichten = new ArrayList<>();
+			for (Iterator<Bericht> iterator = BerichtUtils.getVoorouders(r3); iterator.hasNext(); )
+				berichten.add(iterator.next());
+			assertEquals(List.of(r2, ob), berichten);
+		}
+		
+		{
+			ArrayList<Bericht> berichten = new ArrayList<>();
+			BerichtUtils.forEachVoorouder(r3, bericht -> berichten.add(bericht));
+			assertEquals(List.of(r2, ob), berichten);
+		}
+		
+		assertEquals(Set.of(r1, r3), BerichtUtils.getBerichtenVanAuteur(ob, "Auteur2").collect(Collectors.toSet()));
 		
 		r1.verwijder();
 		assertTrue(r1.isVerwijderd());
