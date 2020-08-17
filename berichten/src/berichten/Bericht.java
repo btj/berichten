@@ -13,6 +13,7 @@ import logicalcollections.LogicalSet;
  * @invar | getReacties() != null
  * @invar | getReacties().stream().allMatch(reactie -> reactie != null && !reactie.isVerwijderd() && reactie.getOuder() == this)
  * @invar | LogicalList.distinct(getReacties())
+ * @invar | !getAncestors().contains(this)
  */
 public class Bericht {
 	
