@@ -10,6 +10,7 @@ public class Reactie extends Bericht {
 	
 	/**
 	 * @invar | ouder != null
+	 * @invar | true
 	 * @invar | verwijderd || ouder.reacties.contains(this)
 	 * 
 	 * @peerObject
