@@ -19,7 +19,7 @@ public class BerichtUtils {
 				return bericht instanceof Reactie;
 			}
 			public Bericht next() {
-				bericht = ((Reactie)bericht).ouder;
+				bericht = ((Reactie)bericht).getOuder();
 				return bericht;
 			}
 		};
@@ -28,7 +28,7 @@ public class BerichtUtils {
 	public static void forEachVoorouder(Bericht bericht0, Consumer<? super Bericht> consumer) {
 		Bericht bericht = bericht0;
 		while (bericht instanceof Reactie) {
-			bericht = ((Reactie)bericht).ouder;
+			bericht = ((Reactie)bericht).getOuder();
 			consumer.accept(bericht);
 		}
 	}

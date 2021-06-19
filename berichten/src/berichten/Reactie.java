@@ -10,17 +10,27 @@ public class Reactie extends Bericht {
 	
 	/**
 	 * @invar | ouder != null
-	 * @invar | true
-	 * @invar | verwijderd || ouder.reacties.contains(this)
+	 */
+	private final Bericht ouder;
+	
+	/**
+	 * @invar | isVerwijderdInternal() || getOuderInternal().getReactiesInternal().contains(this)
 	 * 
+	 * @post | result != null
+	 * @immutable
+	 * @peerObject (package-level)
+	 */
+	Bericht getOuderInternal() { return ouder; }
+	
+	/**
+	 * @immutable
 	 * @peerObject
 	 */
-	final Bericht ouder;
+	public Bericht getOuder() { return getOuderInternal(); }
 
 	/**
 	 * @throws IllegalArgumentException | auteur == null
 	 * @throws IllegalArgumentException | ouder == null
-	 * @mutates | this
 	 * @mutates_properties | ouder.getReacties()
 	 * @post | getAuteur().equals(auteur)
 	 * @post | !isVerwijderd()
@@ -35,14 +45,8 @@ public class Reactie extends Bericht {
 			throw new IllegalArgumentException("ouder is null");
 		
 		this.ouder = ouder;
-		ouder.reacties.add(this);
+		ouder.addReactie(this);
 	}
-	
-	/**
-	 * @immutable
-	 * @peerObject
-	 */
-	public Bericht getOuder() { return ouder; }
 	
 	/**
 	 * @pre | !isVerwijderd()
@@ -53,7 +57,7 @@ public class Reactie extends Bericht {
 	@Override
 	public void verwijder() {
 		super.verwijder();
-		ouder.reacties.remove(this);
+		ouder.removeReactie(this);
 	}
 	
 }
