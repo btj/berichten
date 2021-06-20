@@ -56,6 +56,7 @@ public class Bericht {
 	 * @post | Objects.equals(result, LogicalSet.matching(ancestors ->
 	 *       |     (!(this instanceof Reactie) || ancestors.contains(((Reactie)this).getOuderInternal())) &&
      *       |     ancestors.allMatch(ancestor -> !(ancestor instanceof Reactie) || ancestors.contains(((Reactie)ancestor).getOuderInternal()))))
+	 * @creates | result
 	 */
 	Set<Bericht> getAncestorsInternal() {
 		return LogicalSet.matching(ancestors ->
@@ -84,6 +85,7 @@ public class Bericht {
 	 *       |     ancestors.allMatch(ancestor ->
 	 *       |         !(ancestor instanceof Reactie) || ancestors.contains(((Reactie)ancestor).getOuder()))
 	 *       | ))
+	 * @creates | result
 	 */
 	public Set<Bericht> getAncestors() {
 		return getAncestorsInternal();
